@@ -46,7 +46,6 @@ public class CarController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable String id) {
         validateExistenceInRepository(id);
-
         carService.deleteById(id);
 
         return ResponseEntity.ok().build();
