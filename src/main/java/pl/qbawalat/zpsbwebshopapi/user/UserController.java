@@ -1,0 +1,61 @@
+package pl.qbawalat.zpsbwebshopapi.user;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/users")
+@Slf4j
+@RequiredArgsConstructor
+@CrossOrigin()
+public class UserController {
+
+    private final UserService userService;
+
+    @GetMapping
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity create(@RequestBody User user) {
+        return ResponseEntity.ok(userService.save(user));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable String id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isEmpty()) {
+            log.error("User with id -" + id + " - not found in repository.");
+            ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(user.get());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable String id, @RequestBody User user) {
+        validateExistenceInRepository(id);
+
+        return ResponseEntity.ok(userService.save(user));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable String id) {
+        validateExistenceInRepository(id);
+        userService.deleteById(id);
+
+        return ResponseEntity.ok().build();
+    }
+
+    private void validateExistenceInRepository(String id) {
+        if (userService.findById(id).isEmpty()) {
+            log.error("User with id - " + id + " - does not exist.");
+            ResponseEntity.badRequest().build();
+        }
+    }
+}
