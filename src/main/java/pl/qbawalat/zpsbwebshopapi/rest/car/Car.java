@@ -19,4 +19,5 @@ public class Car {
     private Float price;
     private String currency;
     private String seller;
+    private String buyer;
 }
