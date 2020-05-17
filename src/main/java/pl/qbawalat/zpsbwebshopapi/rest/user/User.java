@@ -1,11 +1,9 @@
-package pl.qbawalat.zpsbwebshopapi.user;
+package pl.qbawalat.zpsbwebshopapi.rest.user;
 
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,7 +15,9 @@ public class User {
     private String password;
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
-
-//    private String password;
+    @ElementCollection
+    private List<String> offers;
+    @ElementCollection
+    private List<String> likedCars;
 //    private UserType type;
 }

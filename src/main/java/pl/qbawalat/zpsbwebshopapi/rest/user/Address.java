@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.user;
+package pl.qbawalat.zpsbwebshopapi.rest.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

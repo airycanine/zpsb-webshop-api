@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.car;
+package pl.qbawalat.zpsbwebshopapi.rest.car;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,27 +17,27 @@ public class CarController {
     private final CarService carService;
 
     @GetMapping
-    public ResponseEntity<List<Car>> findAll(){
+    public ResponseEntity<List<Car>> findAll() {
         return ResponseEntity.ok(carService.findAll());
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Car car){
+    public ResponseEntity create(@RequestBody Car car) {
         return ResponseEntity.ok(carService.save(car));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Car> findById(@PathVariable String id){
+    public ResponseEntity<Car> findById(@PathVariable String id) {
         Optional<Car> car = carService.findById(id);
-        if(car.isEmpty()){
-            log.error("Car with id -"+ id + " - not found in repository.");
+        if (car.isEmpty()) {
+            log.error("Car with id -" + id + " - not found in repository.");
             ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(car.get());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Car> update(@PathVariable String id, @RequestBody Car car){
+    public ResponseEntity<Car> update(@PathVariable String id, @RequestBody Car car) {
         validateExistenceInRepository(id);
 
         return ResponseEntity.ok(carService.save(car));
