@@ -29,7 +29,7 @@ class AdminCreator implements ApplicationListener<ApplicationReadyEvent> {
     public void onApplicationEvent(ApplicationReadyEvent event) {
         User admin = new User("kubawalat@gmail.com", "Jakub", "Walat", new Address("Szczecin", "Zachodniopomorskie", "71-004"), encoder.encode("admin"));
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role(Roles.CUSTOMER));
+        roles.add(new Role(Roles.ADMIN));
         admin.setRoles(roles);
         userRepository.save(admin);
     }
