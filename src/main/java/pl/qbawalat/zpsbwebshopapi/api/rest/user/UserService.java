@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.rest.user;
+package pl.qbawalat.zpsbwebshopapi.api.rest.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.rest.car;
+package pl.qbawalat.zpsbwebshopapi.api.rest.car;
 
 import lombok.Data;
 

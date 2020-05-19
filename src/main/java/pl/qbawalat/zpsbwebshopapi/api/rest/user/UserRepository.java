@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.rest.user;
+package pl.qbawalat.zpsbwebshopapi.api.rest.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
