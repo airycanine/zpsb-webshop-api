@@ -1,5 +1,7 @@
 package pl.qbawalat.zpsbwebshopapi.api.rest.auth;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,9 +47,11 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @PostMapping("/sign-in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
+        logger.info("User tries to log in with credentials: [" + loginRequest.getEmail() + "],[" + loginRequest.getPassword() + "]");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
