@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.api.rest.user;
+package pl.qbawalat.zpsbwebshopapi.api.rest.user.role;
 
 import lombok.Data;
 import pl.qbawalat.zpsbwebshopapi.constants.Roles;
@@ -21,6 +21,6 @@ public class Role {
     }
 
     public Role() {
-        
+
     }
 }

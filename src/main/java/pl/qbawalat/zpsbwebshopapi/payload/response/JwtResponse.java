@@ -1,7 +1,7 @@
 package pl.qbawalat.zpsbwebshopapi.payload.response;
 
 import lombok.Data;
-import pl.qbawalat.zpsbwebshopapi.api.rest.user.Address;
+import pl.qbawalat.zpsbwebshopapi.api.rest.user.address.Address;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;

@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.api.rest.user;
+package pl.qbawalat.zpsbwebshopapi.api.rest.user.address;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,13 +16,15 @@ public class Address {
     private String city;
     private String voivodeship;
     private String zip;
+    private String street;
 
     public Address() {
     }
 
-    public Address(String city, String voivodeship, String zip) {
+    public Address(String city, String voivodeship, String zip, String street) {
         this.city = city;
         this.voivodeship = voivodeship;
         this.zip = zip;
+        this.street = street;
     }
 }

@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.api.rest.user;
+package pl.qbawalat.zpsbwebshopapi.api.rest.user.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

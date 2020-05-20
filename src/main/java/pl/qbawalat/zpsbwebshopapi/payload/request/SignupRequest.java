@@ -2,7 +2,7 @@ package pl.qbawalat.zpsbwebshopapi.payload.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import pl.qbawalat.zpsbwebshopapi.api.rest.user.Address;
+import pl.qbawalat.zpsbwebshopapi.api.rest.user.address.Address;
 
 import javax.persistence.CascadeType;
 import javax.persistence.OneToOne;
@@ -25,8 +25,8 @@ public class SignupRequest {
     private String firstName;
     private String lastName;
     @OneToOne(cascade = {CascadeType.ALL})
-    @JsonIgnore
     private Address address;
+    @JsonIgnore
     private Set<String> role;
 
 }

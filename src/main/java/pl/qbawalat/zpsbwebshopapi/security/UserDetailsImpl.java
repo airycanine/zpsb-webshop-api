@@ -5,8 +5,8 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.qbawalat.zpsbwebshopapi.api.rest.user.Address;
 import pl.qbawalat.zpsbwebshopapi.api.rest.user.User;
+import pl.qbawalat.zpsbwebshopapi.api.rest.user.address.Address;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
