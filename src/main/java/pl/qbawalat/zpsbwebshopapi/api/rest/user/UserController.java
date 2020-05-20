@@ -3,10 +3,12 @@ package pl.qbawalat.zpsbwebshopapi.api.rest.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -18,8 +20,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<User>> findAll() {
-        return ResponseEntity.ok(userService.findAll());
+        return ResponseEntity.ok(userService.findAll().stream().map(user -> {
+            user.setPassword("nicetry"); //should create dto which doesnt consist password but i'm lazy ;(
+            return user;
+        }).collect(Collectors.toList()));
     }
 
     @PostMapping
@@ -45,10 +51,11 @@ public class UserController {
         return ResponseEntity.ok(userService.save(user));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable String id) {
-        validateExistenceInRepository(id);
-        userService.deleteById(id);
+    @DeleteMapping("/{email}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity delete(@PathVariable String email) {
+        validateExistenceInRepository(email);
+        userService.deleteById(email);
 
         return ResponseEntity.ok().build();
     }

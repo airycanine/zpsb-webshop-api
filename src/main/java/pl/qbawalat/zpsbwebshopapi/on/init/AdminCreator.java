@@ -27,7 +27,7 @@ class AdminCreator implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        User admin = new User("kubawalat@gmail.com", "Jakub", "Walat", new Address("Szczecin", "Zachodniopomorskie", "71-004", "Windy 43"), encoder.encode("admin"));
+        User admin = new User("kubawalat@gmail.com", "Jakub", "Walat", new Address("Szczecin", "Windy 43", "Zachodniopomorskie", "70-731"), encoder.encode("admin"));
         Set<Role> roles = new HashSet<>();
         roles.add(new Role(Roles.ADMIN));
         admin.setRoles(roles);
