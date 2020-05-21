@@ -32,6 +32,15 @@ class AdminCreator implements ApplicationListener<ApplicationReadyEvent> {
         roles.add(new Role(Roles.ADMIN));
         admin.setRoles(roles);
         userRepository.save(admin);
+        User admin2 = new User("admin@gmail.com", "Jakub", "Walat", new Address("Szczecin", "Windy 43", "Zachodniopomorskie", "70-731"), encoder.encode("admin"));
+        admin2.setRoles(roles);
+        userRepository.save(admin2);
+        User admin3 = new User("admin1@gmail.com", "Jakub", "Walat", new Address("Szczecin", "Windy 43", "Zachodniopomorskie", "70-731"), encoder.encode("admin"));
+        admin3.setRoles(roles);
+        userRepository.save(admin3);
+        User admin4 = new User("admin2@gmail.com", "Jakub", "Walat", new Address("Szczecin", "Windy 43", "Zachodniopomorskie", "70-731"), encoder.encode("admin"));
+        admin4.setRoles(roles);
+        userRepository.save(admin4);
     }
 
 }
