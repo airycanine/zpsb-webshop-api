@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,16 +26,19 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Car car) {
+    public ResponseEntity<?> create(@Valid @RequestBody Car car) {
+        if (carService.findById(car.getLicenceNumber()).isPresent() && car.getBuyer() != null) {
+            return ResponseEntity.badRequest().body("Car with given regplate is already being sold.");
+        }
         return ResponseEntity.ok(carService.save(car));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Car> findById(@PathVariable String id) {
+    public ResponseEntity<?> findById(@PathVariable String id) {
         Optional<Car> car = carService.findById(id);
         if (car.isEmpty()) {
             log.error("Car with id -" + id + " - not found in repository.");
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Wrong car");
         }
         return ResponseEntity.ok(car.get());
     }
