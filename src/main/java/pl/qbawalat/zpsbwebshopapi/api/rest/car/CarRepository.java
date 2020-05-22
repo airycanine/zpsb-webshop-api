@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.car;
+package pl.qbawalat.zpsbwebshopapi.api.rest.car;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
