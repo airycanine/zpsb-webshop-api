@@ -1,10 +1,12 @@
 package pl.qbawalat.zpsbwebshopapi.api.rest.user;
 
+import com.google.common.base.Strings;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pl.qbawalat.zpsbwebshopapi.api.rest.car.CarService;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final CarService carService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -56,6 +59,10 @@ public class UserController {
     public ResponseEntity delete(@PathVariable String email) {
         validateExistenceInRepository(email);
         userService.deleteById(email);
+        carService.findAll()
+                .stream()
+                .filter(carOffer -> carOffer.getSeller().equals(email) && Strings.isNullOrEmpty(carOffer.getBuyer()))
+                .forEach(carOffer -> carService.deleteById(carOffer.getOfferNumber()));
 
         return ResponseEntity.ok().build();
     }
