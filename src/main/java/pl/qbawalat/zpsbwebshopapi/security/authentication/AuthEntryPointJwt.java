@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.security;
+package pl.qbawalat.zpsbwebshopapi.security.authentication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +17,7 @@ class AuthEntryPointJwt implements AuthenticationEntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         logger.error("Unauthorized error: {}", authException.getMessage());
 //        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
         response.setContentType("application/json");

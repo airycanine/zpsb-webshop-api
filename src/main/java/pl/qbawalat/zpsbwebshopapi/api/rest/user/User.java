@@ -1,6 +1,5 @@
 package pl.qbawalat.zpsbwebshopapi.api.rest.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import pl.qbawalat.zpsbwebshopapi.api.rest.user.address.Address;
 import pl.qbawalat.zpsbwebshopapi.api.rest.user.role.Role;
@@ -26,7 +25,6 @@ public class User {
     @ElementCollection
     private List<String> likedCars;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     public User() {

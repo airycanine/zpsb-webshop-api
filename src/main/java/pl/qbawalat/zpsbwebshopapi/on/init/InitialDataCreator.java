@@ -1,12 +1,11 @@
 package pl.qbawalat.zpsbwebshopapi.on.init;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import pl.qbawalat.zpsbwebshopapi.api.rest.car.CarOffer;
 import pl.qbawalat.zpsbwebshopapi.api.rest.car.CarRepository;
 import pl.qbawalat.zpsbwebshopapi.api.rest.user.User;
@@ -15,23 +14,24 @@ import pl.qbawalat.zpsbwebshopapi.api.rest.user.address.Address;
 import pl.qbawalat.zpsbwebshopapi.api.rest.user.role.Role;
 import pl.qbawalat.zpsbwebshopapi.constants.Roles;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.IntStream;
+
+import static pl.qbawalat.zpsbwebshopapi.utils.DoubleUtils.roundDoubleToTwoPlaces;
 
 @Component
 @Order(0)
+@RequiredArgsConstructor
 class InitialDataCreator implements ApplicationListener<ApplicationReadyEvent> {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
-
-    @Autowired
-    private PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
@@ -47,7 +47,8 @@ class InitialDataCreator implements ApplicationListener<ApplicationReadyEvent> {
         firstCarOffer.setLicenceNumber("Polo");
         firstCarOffer.setModel("Mustang");
         firstCarOffer.setSeller("kubawalat@gmail.com");
-        firstCarOffer.setPrice(12500F);
+        firstCarOffer.setPrice(12500d);
+        firstCarOffer.setCreationDate(LocalDateTime.now());
         firstCarOffer.setImages(Arrays.asList(
                 "https://upload.wikimedia.org/wikipedia/commons/2/2d/1964_12_Ford_Mustang.jpg",
                 "https://lh3.googleusercontent.com/proxy/PDIfVVYz8uCF6jgwAVHbxrqja5luCCWbdHNG_zQTxuW6SNlz-ICoOT_DKIgnIOfeqb2HT_dEVVqHl6sxgaBFIzhkSBs868YM4SDsmRatjtA0pLIWgljuW9aiytWg3yXNwXNFBTTDGeo6WvJLZNWp"));
@@ -66,17 +67,16 @@ class InitialDataCreator implements ApplicationListener<ApplicationReadyEvent> {
         carOffer.setImages(Arrays.asList(
                 "https://d-mf.ppstatic.pl/art/17/5e/xbucyrk00wsccsc848k00/mclaren-speedtail-concludes-high-speed-testing_00.1200.jpg",
                 "https://lh3.googleusercontent.com/proxy/PDIfVVYz8uCF6jgwAVHbxrqja5luCCWbdHNG_zQTxuW6SNlz-ICoOT_DKIgnIOfeqb2HT_dEVVqHl6sxgaBFIzhkSBs868YM4SDsmRatjtA0pLIWgljuW9aiytWg3yXNwXNFBTTDGeo6WvJLZNWp"));
-        final String uri = "https://source.unsplash.com/1600x900/?car-polo";
-        RestTemplate restTemplate = new RestTemplate();
-
-        for (var i = 1; i < 10; i++) {
-
+        IntStream.range(0, 100).forEach(i -> {
+            carOffer.setCreationDate(LocalDateTime.now());
             carOffer.setOfferNumber(String.valueOf(i));
-            carOffer.setPrice((float) Math.random() * 200000);
+            double randomPrice = Math.random() * 200000;
+            carOffer.setPrice(roundDoubleToTwoPlaces(randomPrice));
             carOffer.setLicenceNumber(String.valueOf(Math.random()));
             carRepository.save(carOffer);
-        }
+        });
     }
+
 
     private void createAdmins() {
         User admin = new User("kubawalat@gmail.com",

@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.security;
+package pl.qbawalat.zpsbwebshopapi.security.authentication;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -33,6 +33,7 @@ public class UserDetailsImpl implements UserDetails {
     private List<String> likedCars;
     @JsonIgnore
     private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(String email, String firstName, String lastName, Address address, List<String> offers, List<String> likedCars, String password, Collection<? extends GrantedAuthority> authorities) {
         this.email = email;
@@ -45,15 +46,20 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    private Collection<? extends GrantedAuthority> authorities;
-
-
     public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
+        List<GrantedAuthority> authorities = user.getRoles()
+                .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
-        return new UserDetailsImpl(user.getEmail(), user.getFirstName(), user.getLastName(), user.getAddress(), user.getOffers(), user.getLikedCars(), user.getPassword(), authorities);
+        return new UserDetailsImpl(user.getEmail(),
+                                   user.getFirstName(),
+                                   user.getLastName(),
+                                   user.getAddress(),
+                                   user.getOffers(),
+                                   user.getLikedCars(),
+                                   user.getPassword(),
+                                   authorities);
     }
 
     @Override

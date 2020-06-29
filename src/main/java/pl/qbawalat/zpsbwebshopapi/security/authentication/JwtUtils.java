@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.security;
+package pl.qbawalat.zpsbwebshopapi.security.authentication;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;

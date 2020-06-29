@@ -1,4 +1,4 @@
-package pl.qbawalat.zpsbwebshopapi.security;
+package pl.qbawalat.zpsbwebshopapi.security.authentication;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

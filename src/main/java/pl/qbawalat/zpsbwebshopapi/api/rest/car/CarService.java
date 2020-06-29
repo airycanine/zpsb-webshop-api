@@ -37,7 +37,10 @@ public class CarService {
     }
 
     public CarOffer save(CarOffer carOffer) {
-        String offerNumber = String.valueOf((int) (Math.ceil(Math.random() * 666)));
+        //TODO: really bad, I should use some random generator
+        String offerNumber = new StringBuilder().append("Offer number: ")
+                .append(carRepository.findAll().size())
+                .toString();
         List<CarOffer> allOffers = carRepository.findAll();
         while (allOffers.contains(offerNumber)) {
             offerNumber = String.valueOf(Math.ceil(Math.random()));

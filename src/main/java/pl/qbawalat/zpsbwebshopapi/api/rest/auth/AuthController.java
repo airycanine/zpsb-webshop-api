@@ -20,8 +20,8 @@ import pl.qbawalat.zpsbwebshopapi.payload.request.LoginRequest;
 import pl.qbawalat.zpsbwebshopapi.payload.request.SignupRequest;
 import pl.qbawalat.zpsbwebshopapi.payload.response.JwtResponse;
 import pl.qbawalat.zpsbwebshopapi.payload.response.MessageResponse;
-import pl.qbawalat.zpsbwebshopapi.security.JwtUtils;
-import pl.qbawalat.zpsbwebshopapi.security.UserDetailsImpl;
+import pl.qbawalat.zpsbwebshopapi.security.authentication.JwtUtils;
+import pl.qbawalat.zpsbwebshopapi.security.authentication.UserDetailsImpl;
 
 import javax.validation.Valid;
 import java.util.HashSet;
