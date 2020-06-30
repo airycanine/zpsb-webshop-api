@@ -26,7 +26,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.ok(userService.findAll().stream().map(user -> {
-            user.setPassword("nicetry"); //should create dto which doesnt consist password but i'm lazy ;(
+//            user.setPassword("nicetry"); //should create dto which doesnt consist password but i'm lazy ;(
             return user;
         }).collect(Collectors.toList()));
     }
@@ -38,12 +38,17 @@ public class UserController {
 
     @GetMapping("/")
     public ResponseEntity<User> getCustomer(@RequestParam String email, @RequestParam String password) {
+        User user = findOrThrowBadRequest(email);
+        return ResponseEntity.ok(user);
+    }
+
+    private User findOrThrowBadRequest(@RequestParam String email) {
         Optional<User> user = userService.findById(email);
         if (user.isEmpty()) {
             log.error("User with email -" + email + " - not found in repository.");
             ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(user.get());
+        return user.get();
     }
 
 
@@ -54,9 +59,18 @@ public class UserController {
         return ResponseEntity.ok(userService.save(user));
     }
 
+    @PutMapping("/{id}/address")
+    public ResponseEntity<User> updateAddress(@PathVariable String id, @RequestBody User user) {
+        User foundUser = findOrThrowBadRequest(user.getEmail());
+        foundUser.setAddress(user.getAddress());
+        User save = userService.save(foundUser);
+        List<User> all = userService.findAll();
+        return ResponseEntity.ok(userService.save(foundUser));
+    }
+
     @DeleteMapping("/{email}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity delete(@PathVariable String email) {
+    public ResponseEntity<User> delete(@PathVariable String email) {
         validateExistenceInRepository(email);
         userService.deleteById(email);
         carService.findAll()
