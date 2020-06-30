@@ -46,6 +46,7 @@ class InitialDataCreator implements ApplicationListener<ApplicationReadyEvent> {
         firstCarOffer.setCurrency("$");
         firstCarOffer.setLicenceNumber("Polo");
         firstCarOffer.setModel("Mustang");
+        firstCarOffer.setDescription("Mocne auto");
         firstCarOffer.setSeller("kubawalat@gmail.com");
         firstCarOffer.setPrice(12500d);
         firstCarOffer.setCreationDate(LocalDateTime.now());
